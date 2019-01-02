@@ -15,7 +15,7 @@ const PORT = process.env.PORT || process.argv[2] || 8080;
 const app = express();
 
 // Use body-parser for handling form submissions
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({extended: true }));
 
 // Handlebars
 const exphbs = require("express-handlebars");

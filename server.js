@@ -30,13 +30,13 @@ app.use(express.static("public"));
 const router = require("./controllers/api.js");
 app.use(router);
 // Connect to the Mongo DB
-const MONGODB_URI = process.env.MONGODB_URI || "mongodb://heroku_z67sznlb:Mongopassword123:1316/mongoHeadlines";
+const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost:/mongoHeadlines";
 
-//const MONGODB_URI = process.env.MONGODB_URI || "mongodb://heroku_z67sznlb:iqscds18qhuhn76sjt2jpse80j@ds223760.mlab.com:23760/heroku_z67sznlb";//
+
 
 // Set mongoose to leverage built in JavaScript ES6 Promises
 // Connect to the Mongo DB
-mongoose.Promise = Promise;
+
 mongoose.connect(MONGODB_URI);
 
 

@@ -9,6 +9,7 @@ const mongodb = require('mongodb');
 // Require all models
 const db = require("./models");
 
+ApiKey = "https://api.mlab.com/api/1/heroku_z67sznlb?apiKey=M7T8I9cGDr44fm8eHSpTU0DL7sP0YIDl";
 
 // Port configuration for local/Heroku
 const PORT = process.env.PORT || process.argv[2] || 8080;
@@ -39,7 +40,7 @@ const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost:/mongoHeadli
 // Set mongoose to leverage built in JavaScript ES6 Promises
 // Connect to the Mongo DB
 
-mongoose.connect(MONGODB_URI || MONGOLAB_URI);
+mongoose.connect(MONGODB_URI || MONGOLAB_URI || ApiKey);
 
 
 // Start the server

@@ -32,13 +32,13 @@ app.use(router);
 // Connect to the Mongo DB
 const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost:/mongoHeadlines";
 
+const MONGOLAB_URI="mongodb://MongoScrapper:MongoScrapper123@ds223760.mlab.com:23760/heroku_z67sznlb";
 
 
 // Set mongoose to leverage built in JavaScript ES6 Promises
 // Connect to the Mongo DB
 
-mongoose.connect(MONGODB_URI);
-
+mongoose.connect(MONGODB_URI || MONGOLAB_URI);
 
 
 // Start the server

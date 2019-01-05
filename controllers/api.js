@@ -40,6 +40,7 @@ router.get("/scrape", (req, res) => {
                 
                 if (result.title && result.link && result.summary){
                     // Create a new Article using the `result` object built from scraping, but only if both values are present
+                    console.log(result)
                     db.Article.create(result)
                         .then(function (dbArticle) {
                             // View the added result in the console

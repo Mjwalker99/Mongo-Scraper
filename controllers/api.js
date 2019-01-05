@@ -11,6 +11,7 @@ router.get("/scrape", (req, res) => {
     request("https://www.nytimes.com/", (error, response, body) => {
         if (!error && response.statusCode === 200) {
             // Then, we load that into cheerio and save it to $ for a shorthand selector
+            const results = []
             const $ = cheerio.load(body);
             let count = 0;
             // Now, we grab every article:
@@ -20,42 +21,37 @@ router.get("/scrape", (req, res) => {
                 let result = {};
                 // Add the text and href of every link, and summary and byline, saving them to object
                 result.title = $(element)
-                    .children('.story-heading')
-                    .children('a')
+                .children('div')
+                .children('a')
+                .text().trim();
+            result.link = $(element)
+                .children('div')
+                .children('a')
+                .attr("href");
+            result.summary = $(element)
+                .children('div')
+                .text().trim()
+                || $(element)
+                    .children('')
                     .text().trim();
-                result.link = $(element)
-                    .children('.story-heading')
-                    .children('a')
-                    .attr("href");
-                result.summary = $(element)
-                    .children('.summary')
-                    .text().trim()
-                    || $(element)
-                        .children('ul')
-                        .text().trim();
-                result.byline = $(element)
-                    .children('.byline')
-                    .text().trim()
-                    || 'No byline available'
-                
+            result.byline = $(element)
+                .children('time')
+                .text().trim()
+                || 'No byline available'
+                    console.log(result)
                 if (result.title && result.link && result.summary){
                     // Create a new Article using the `result` object built from scraping, but only if both values are present
-                    console.log(result)
-                    db.Article.create(result)
-                        .then(function (dbArticle) {
-                            // View the added result in the console
-                            count++;
-                        })
-                        .catch(function (err) {
-                            // If an error occurred, send it to the client
-                            return res.json(err);
-                        });
+                    results.push(new db.Article(result))
                 };
             });
+            console.log(results)
+            db.Article.collection.insertMany(results, () => {
+                res.redirect('/')
+            })
             // If we were able to successfully scrape and save an Article, redirect to index
-            res.redirect('/')
         }
         else if (error || response.statusCode != 200){
+            console.log(error)
             res.send("Error: Unable to obtain new articles")
         }
     });
@@ -101,7 +97,7 @@ router.get("/articles", function (req, res) {
         .then(function (dbArticle) {
             // If we were able to successfully find Articles, send them back to the client
             res.json(dbArticle);
-        })
+    })
         .catch(function (err) {
             // If an error occurred, send it to the client
             res.json(err);

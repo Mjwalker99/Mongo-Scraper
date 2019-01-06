@@ -1,6 +1,7 @@
 # Mongo-Scraper
 
-
+ <img width="1266" alt="screen shot 2019-01-06 at 5 18 55 pm" src="https://user-images.githubusercontent.com/40408849/50742942-30731500-11d7-11e9-8489-924cbfdbcc56.png">
+ 
 # Overview
 An app that scrapes articles from the New York Times website and lets users save articles and leave comments on the latest news.
 Check it out! >https://infinite-cliffs-65581.herokuapp.com/<

@@ -1,7 +1,9 @@
 # Mongo-Scraper
 
 
-https://infinite-cliffs-65581.herokuapp.com/
+# Overview
+An app that scrapes articles from the New York Times website and lets users save articles and leave comments on the latest news.
+Check it out! >https://infinite-cliffs-65581.herokuapp.com/<
 
 
 # How It Works
